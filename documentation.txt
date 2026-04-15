@@ -1,0 +1,192 @@
+OPS Marketplace Frontend Documentation
+====================================
+
+Last updated: 2026-04-12 (Africa/Accra)
+
+Overview
+--------
+This project is a static frontend prototype for the OPS marketplace. It includes:
+- A landing page with buyer/seller CTAs
+- Buyer onboarding (3-step flow with progress bar)
+- Seller onboarding (3-step flow with progress bar)
+- Login page
+- Shared responsive scaling via a dedicated media.js
+
+Pages and Routes
+----------------
+1) Landing Page
+- File: index.html
+- Styles: landingPage.css
+- Script: landingPage.js
+- Links:
+  - Start Buying -> buyers_onboardingPage/signupPage.html
+  - Become a Buyer (dropdown) -> buyers_onboardingPage/signupPage.html
+  - Start Selling -> sellers_onboardingPage/signUpPage.html
+  - Become a Seller (dropdown) -> sellers_onboardingPage/signUpPage.html
+  - Login button is present but not yet linked to Login/loginPage.html
+
+2) Buyer Onboarding
+- File: buyers_onboardingPage/signupPage.html
+- Styles: buyers_onboardingPage/signupPage.css
+- Script: buyers_onboardingPage/signupPage.js
+- Images: buyers_onboardingPage/Images
+- Flow: 3 steps (Account -> Delivery -> Preferences)
+- Progress bar:
+  - Three separate bars with dots and labels above
+  - Bar fills only after clicking Next/Finish for the previous step
+- Validation:
+  - Step 1: full name, email, password, confirm password
+  - Step 2: address, city/region, delivery preference
+  - Step 3: terms acceptance
+
+3) Seller Onboarding
+- File: sellers_onboardingPage/signUpPage.html
+- Styles: sellers_onboardingPage/signupPage.css
+- Script: sellers_onboardingPage/signupPage.js
+- Images: sellers_onboardingPage/Images
+- Flow: 3 steps (Account -> Business -> Payout)
+- Progress bar:
+  - Three separate bars with dots and labels above
+  - Bar fills only after clicking Next/Finish for the previous step
+- Validation:
+  - Step 1: full name, email, phone, password, confirm password
+  - Step 2: business name, seller type, location, store name, store description,
+            at least one category, fulfillment method
+  - Step 3: payout method, provider, account name, account number, terms
+
+4) Login Page
+- File: Login/loginPage.html
+- Styles: Login/loginPage.css
+- Script: Login/loginPage.js
+- Images: Login/Images
+- Inputs: Email/Phone + Password
+- Remember me + Forgot password + Google sign-in button
+- Password toggle with show/hide icon
+- Uses MTN Brighter Sans for all text, with stronger weight contrast
+
+Shared Responsive Scaling
+-------------------------
+- File: media.js (project root)
+- Purpose: Sets a data-screen attribute on :root so pages can adjust layout
+  without mixing this logic into page-specific scripts.
+- Breakpoints:
+  - Phone: <= 640px
+  - Tablet: <= 1024px
+  - Desktop: > 1024px
+- Behavior:
+  - Sets :root[data-screen="phone"|"tablet"|"desktop"]
+  - Exposes --ui-scale CSS variable for future use
+- Included in:
+  - index.html
+  - buyers_onboardingPage/signupPage.html
+  - sellers_onboardingPage/signUpPage.html
+  - Login/loginPage.html
+
+Design System Notes
+-------------------
+- Primary brand color: #1e7f4f
+- Accent: #f2c94c (used in logo gradient)
+- Font:
+  - MTNBrighterSans (single bold ttf available)
+  - Lighter weights are simulated through CSS; if more weights are added
+    (Regular/Medium), they should be included as additional @font-face.
+- UI style:
+  - Rounded inputs and buttons
+  - Subtle grayscale dividers
+  - Wide, centered form panels
+
+Progress Bar Behavior (Buyer and Seller)
+----------------------------------------
+- The progress bar shows 3 separate bars (one per step).
+- Active step shows its label and dot, but bar is empty.
+- Once the user clicks Next/Finish, the previous step bar fills.
+- The fill state is driven by JS via CSS custom property --segment-fill.
+
+Landing Page Behavior
+---------------------
+- Dropdown menu for Register opens/closes with click.
+- Background slides rotate every 10 seconds.
+- CTA buttons are anchored links that match button styling.
+
+File Structure (Top Level)
+--------------------------
+/OPS
+  index.html
+  landingPage.css
+  landingPage.js
+  media.js
+  documentation.txt
+  buyers_onboardingPage/
+    signupPage.html
+    signupPage.css
+    signupPage.js
+    Images/
+      google icon.png
+      hidden password.png
+      show password.png
+      down.png
+  sellers_onboardingPage/
+    signUpPage.html
+    signupPage.css
+    signupPage.js
+    Images/
+      google icon.png
+      hidden password.png
+      show password.png
+      down.png
+  Login/
+    loginPage.html
+    loginPage.css
+    loginPage.js
+    Images/
+      google icon.png
+      hidden password.png
+      show password.png
+  fonts/
+    MTN/
+      MTNBrighterSans-Bold.ttf
+  Images/ (landing page background assets)
+
+Image Assets
+------------
+Landing Page:
+- /OPS/Images/seamstress.png
+- /OPS/Images/Screenshot 2026-03-16 at 14.07.02.png
+
+Buyer Onboarding:
+- /OPS/buyers_onboardingPage/Images/google icon.png
+- /OPS/buyers_onboardingPage/Images/hidden password.png
+- /OPS/buyers_onboardingPage/Images/show password.png
+- /OPS/buyers_onboardingPage/Images/down.png
+
+Seller Onboarding:
+- /OPS/sellers_onboardingPage/Images/google icon.png
+- /OPS/sellers_onboardingPage/Images/hidden password.png
+- /OPS/sellers_onboardingPage/Images/show password.png
+- /OPS/sellers_onboardingPage/Images/down.png
+
+Login:
+- /OPS/Login/Images/google icon.png
+- /OPS/Login/Images/hidden password.png
+- /OPS/Login/Images/show password.png
+
+How to Run
+----------
+This is a static frontend. Open index.html in a browser or serve the folder.
+If you use a local server, any simple static server will work.
+
+Known Gaps / TODOs
+------------------
+- Link the landing page Login button to Login/loginPage.html
+- Connect forms to backend (Firebase or API)
+- Add real password reset flow
+- Add seller verification file handling (currently just a file input)
+- Add more MTN font weights (regular/medium) for truer weight contrast
+
+Changelog (High Level)
+----------------------
+- Implemented landing page CTAs and dropdown
+- Added multi-step buyer onboarding with progress bar
+- Added multi-step seller onboarding with progress bar
+- Added login page with MTN font styling
+- Centralized responsive scaling using media.js
